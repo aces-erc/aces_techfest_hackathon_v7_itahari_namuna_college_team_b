@@ -71,10 +71,8 @@
     </style>
 </head>
 <body class="bg-gray-100 min-h-screen">
-    <!-- Header Section -->
     <header class="bg-gradient-to-r from-blue-500 to-primary-color text-white py-4 px-6 fixed w-full top-0 z-50 shadow-lg animate-slideIn">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Logo -->
             <div class="flex items-center space-x-3">
                 <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10 rounded-full">
                 <h1 class="text-2xl font-bold">MyFitness</h1>

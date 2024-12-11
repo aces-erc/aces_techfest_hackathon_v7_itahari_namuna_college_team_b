@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['full_name'] = $user['full_name'];
 
                 // Redirect to the dashboard
-                header("Location: dashboard.php");
+                header("Location: view/dashboard.php");
                 exit();
             } else {
                 $error = "Invalid phone number or password.";
