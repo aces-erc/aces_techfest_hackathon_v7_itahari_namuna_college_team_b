@@ -1,3 +1,4 @@
+
 <?php
 include_once '../config/db.php';
 
@@ -10,7 +11,7 @@ if (!$institute_id) {
 }
 
 try {
-    $stmt = $db->prepare("SELECT * FROM explore WHERE institute_id = :id");
+    $stmt = $db->prepare("SELECT * FROM explore WHERE id = :id");
     $stmt->bindParam(':id', $institute_id, PDO::PARAM_INT);
     $stmt->execute();
     $institute = $stmt->fetch(PDO::FETCH_ASSOC);
