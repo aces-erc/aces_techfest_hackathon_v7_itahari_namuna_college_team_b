@@ -11,6 +11,7 @@ Rule Book [see here!](https://drive.google.com/file/d/1Sa2UTJ7J4sWB28mvU9a0f6jQx
 
 
 
+
 ## Things to consider:
 - Participants are **not allowed** to bring pre-existing or ready-made projects. All work must be initiated and developed during the hackathon. (We will regularly check the codebase.)
 - If any irregularities are found during the checking, it will lead to the team's **disqualification**.
