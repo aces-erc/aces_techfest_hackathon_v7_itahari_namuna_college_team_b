@@ -86,7 +86,7 @@
             <!-- Navigation Links -->
             <nav class="nav-links hidden lg:flex items-center space-x-8">
                 <a href="#" class="hover:text-blue-200 transition-colors duration-300">Home</a>
-                <a href="#" class="hover:text-blue-200 transition-colors duration-300">About</a>
+                <a href="#" class="hover:text-blue-200 transition-colors duration-300">Explore</a>
                 <a href="#" class="hover:text-blue-200 transition-colors duration-300">Contact</a>
                 <a href="#" class="hover:text-blue-200 transition-colors duration-300">Dashboard</a>
                 <div class="flex space-x-4">
