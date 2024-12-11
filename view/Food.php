@@ -9,19 +9,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $food_name = trim($_POST['food_name']);
     $protein = floatval($_POST['protein']);
     $calorie = floatval($_POST['calorie']);
-    $carbs = floatval($_POST['carbs']);
 
-    // Insert into the `user_food` table
     try {
-        $stmt = $db->prepare("INSERT INTO user_food (user_id, food_name, protein, calorie, carbs) VALUES (:user_id, :food_name, :protein, :calorie, :carbs)");
+        // Insert into the `user_food` table
+        $stmt = $db->prepare("INSERT INTO user_food (user_id, food_name, protein, calorie) VALUES (:user_id, :food_name, :protein, :calorie)");
         $stmt->execute([
             ':user_id' => $user_id,
             ':food_name' => $food_name,
             ':protein' => $protein,
             ':calorie' => $calorie,
-            ':carbs' => $carbs,
         ]);
-        echo json_encode(['status' => 'success']);
+
+        // Calculate the new total protein consumed by the user
+        $stmt = $db->prepare("SELECT SUM(protein) AS total_protein FROM user_food WHERE user_id = :user_id");
+        $stmt->execute([':user_id' => $user_id]);
+        $totalProtein = $stmt->fetch(PDO::FETCH_ASSOC)['total_protein'];
+
+        // Update the `consumed_protein` column in the `users` table
+        $updateStmt = $db->prepare("UPDATE users SET consumed_protein = :consumed_protein WHERE user_id = :user_id");
+        $updateStmt->execute([
+            ':consumed_protein' => $totalProtein,
+            ':user_id' => $user_id,
+        ]);
+
+        echo json_encode(['status' => 'success', 'totalProtein' => $totalProtein]);
     } catch (PDOException $e) {
         echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
     }
@@ -37,11 +48,12 @@ try {
     // Calculate totals
     $totalProtein = array_sum(array_column($userFoods, 'protein'));
     $totalCalories = array_sum(array_column($userFoods, 'calorie'));
-    $totalCarbs = array_sum(array_column($userFoods, 'carbs'));
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,10 +87,7 @@ try {
                     <label for="calorie" class="block text-sm font-medium text-gray-700">Calories</label>
                     <input type="number" id="calorie" name="calorie" step="0.1" class="p-2 border rounded w-full" required>
                 </div>
-                <div>
-                    <label for="carbs" class="block text-sm font-medium text-gray-700">Carbs (grams)</label>
-                    <input type="number" id="carbs" name="carbs" step="0.1" class="p-2 border rounded w-full" required>
-                </div>
+           
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Food</button>
             </form>
         </div>
@@ -110,98 +119,100 @@ try {
     </div>
 
     <script>
-        $(document).ready(function () {
-            // Add food via AJAX
-            $('#addFoodForm').on('submit', function (e) {
-                e.preventDefault();
-                const formData = $(this).serialize();
-                $.ajax({
-                    url: 'food.php',
-                    method: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        const data = JSON.parse(response);
-                        if (data.status === 'success') {
-                            alert('Food added successfully!');
-                            location.reload(); // Refresh to show the updated food list and totals
-                        } else {
-                            alert('Error adding food: ' + data.message);
-                        }
-                    },
-                    error: function () {
-                        alert('Failed to add food.');
-                    }
-                });
-            });
-
-            // Search nutrition database
-            $('#searchFood').on('input', function () {
-                const query = $(this).val();
-                if (query.length > 1) {
-                    $.ajax({
-                        url: '../controller/search_nutrition.php', // Endpoint to search `nutrition` table
-                        method: 'GET',
-                        data: { query },
-                        success: function (response) {
-                            const foods = JSON.parse(response);
-                            let html = '';
-                            foods.forEach(food => {
-                                html += `
-                                    <div class="flex items-center justify-between p-4 bg-gray-50 border rounded">
-                                        <div>
-                                            <p class="font-bold text-gray-700">${food.food_name}</p>
-                                            <p class="text-sm text-gray-500">
-                                                Protein: ${food.protein}g, Calories: ${food.calorie} kcal, Carbs: ${food.carbs}g
-                                            </p>
-                                        </div>
-                                        <button 
-                                            class="px-3 py-1 bg-green-500 text-white rounded addFoodButton" 
-                                            data-name="${food.food_name}" 
-                                            data-protein="${food.protein}" 
-                                            data-calorie="${food.calorie}" 
-                                            data-carbs="${food.carbs}"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                `;
-                            });
-                            $('#nutritionResults').html(html);
-                        },
-                        error: function () {
-                            alert('Failed to search nutrition database.');
-                        }
-                    });
+       $(document).ready(function () {
+    // Add food via AJAX
+    $('#addFoodForm').on('submit', function (e) {
+        e.preventDefault();
+        const formData = $(this).serialize();
+        $.ajax({
+            url: 'food.php',
+            method: 'POST',
+            data: formData,
+            success: function (response) {
+                const data = JSON.parse(response);
+                if (data.status === 'success') {
+                    alert('Food added successfully!');
+                    location.reload(); // Refresh the page
                 } else {
-                    $('#nutritionResults').html('');
+                    alert('Error adding food: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('Failed to add food.');
+            }
+        });
+    });
+
+    // Search nutrition database
+    $('#searchFood').on('input', function () {
+        const query = $(this).val();
+        if (query.length > 1) {
+            $.ajax({
+                url: '../controller/search_nutrition.php',
+                method: 'GET',
+                data: { query },
+                success: function (response) {
+                    const foods = JSON.parse(response);
+                    let html = '';
+                    if (Array.isArray(foods)) {
+                        foods.forEach(food => {
+                            html += `
+                                <div class="flex items-center justify-between p-4 bg-gray-50 border rounded">
+                                    <div>
+                                        <p class="font-bold text-gray-700">${food.food_name}</p>
+                                        <p class="text-sm text-gray-500">
+                                            Protein: ${food.protein}g, Calories: ${food.calorie} kcal
+                                        </p>
+                                    </div>
+                                    <button 
+                                        class="px-3 py-1 bg-green-500 text-white rounded addFoodButton" 
+                                        data-name="${food.food_name}" 
+                                        data-protein="${food.protein}" 
+                                        data-calorie="${food.calorie}">
+                                        +
+                                    </button>
+                                </div>`;
+                        });
+                        $('#nutritionResults').html(html);
+                    } else {
+                        $('#nutritionResults').html('<p class="text-gray-500">No results found.</p>');
+                    }
+                },
+                error: function () {
+                    alert('Failed to search nutrition database.');
                 }
             });
+        } else {
+            $('#nutritionResults').html('');
+        }
+    });
 
-            // Add food from nutrition database
-            $(document).on('click', '.addFoodButton', function () {
-                const food_name = $(this).data('name');
-                const protein = $(this).data('protein');
-                const calorie = $(this).data('calorie');
-                const carbs = $(this).data('carbs');
-                $.ajax({
-                    url: 'food.php',
-                    method: 'POST',
-                    data: { food_name, protein, calorie, carbs },
-                    success: function (response) {
-                        const data = JSON.parse(response);
-                        if (data.status === 'success') {
-                            alert('Food added successfully!');
-                            location.reload(); // Refresh to show the updated food list and totals
-                        } else {
-                            alert('Error adding food: ' + data.message);
-                        }
-                    },
-                    error: function () {
-                        alert('Failed to add food.');
-                    }
-                });
-            });
+    // Add food from nutrition database
+    $(document).on('click', '.addFoodButton', function () {
+        const food_name = $(this).data('name');
+        const protein = $(this).data('protein');
+        const calorie = $(this).data('calorie');
+        $.ajax({
+            url: 'food.php',
+            method: 'POST',
+            data: { food_name, protein, calorie },
+            success: function (response) {
+                const data = JSON.parse(response);
+                if (data.status === 'success') {
+                    alert('Food added successfully!');
+                    location.reload(); // Refresh the page
+                } else {
+                    alert('Error adding food: ' + data.message);
+                }
+            },
+            error: function () {
+                alert('Failed to add food.');
+            }
         });
+    });
+});
+
     </script>
 </body>
 </html>
+
