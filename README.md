@@ -1,8 +1,15 @@
 # ACES Techfest Hackathon v7.0
 
+
 Team: Itahari Namuna College Team B
 
 Rule Book [see here!](https://drive.google.com/file/d/1Sa2UTJ7J4sWB28mvU9a0f6jQxJQ7z5AI/view?fbclid=IwZXh0bgNhZW0CMTAAAR1QW9FOv_LZ5pnDR0sxwzTpC2i9I1_Lhjd_HcXlwCW5c4tkOeJeAV0SWTE_aem_Q-iRzE-UhY2m2F2XHkB6vg)
+
+
+
+
+
+
 
 ## Things to consider:
 - Participants are **not allowed** to bring pre-existing or ready-made projects. All work must be initiated and developed during the hackathon. (We will regularly check the codebase.)
