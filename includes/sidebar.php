@@ -50,6 +50,16 @@
                 </a>
             </li>
             <li>
+                <a href="profile.php"
+                    class="text-black text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
+                        viewBox="0 0 24 24">
+                        <path d="M12 0C8.13 0 4.84 2.69 4.17 6.37L1.79 6.8a1 1 0 00-.79 1.03c0 .46.31.85.75.96l2.42.48c-.1.65-.16 1.32-.16 2 0 .68.06 1.35.16 2l-2.42.48a1 1 0 00-.75.96c0 .47.31.85.79 1.03l2.37.49c.68 3.68 3.97 6.37 7.83 6.37s7.15-2.69 7.83-6.37l2.37-.49a1 1 0 00.79-1.03c0-.47-.31-.85-.75-.96l-2.42-.48c.1-.65.16-1.32.16-2 0-.68-.06-1.35-.16-2l2.42-.48a1 1 0 00.75-.96c0-.47-.31-.85-.79-1.03L19.83 6.8C19.16 2.69 15.87 0 12 0zm0 2c3.45 0 6.24 2.56 6.72 6H5.28C5.76 4.56 8.55 2 12 2zm-7.53 9H19.5c.08.32.13.65.17 1H4.3c.04-.35.09-.68.17-1zm7.53 7c-3.45 0-6.24-2.56-6.72-6h13.45c-.48 3.44-3.27 6-6.73 6z" />
+                    </svg>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
                 <a href="settings.php"
                     class="text-black text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"

@@ -37,7 +37,6 @@ try {
     // Calculate totals
     $totalProtein = array_sum(array_column($userFoods, 'protein'));
     $totalCalories = array_sum(array_column($userFoods, 'calorie'));
-    $totalCarbs = array_sum(array_column($userFoods, 'carbs'));
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
@@ -75,10 +74,7 @@ try {
                     <label for="calorie" class="block text-sm font-medium text-gray-700">Calories</label>
                     <input type="number" id="calorie" name="calorie" step="0.1" class="p-2 border rounded w-full" required>
                 </div>
-                <div>
-                    <label for="carbs" class="block text-sm font-medium text-gray-700">Carbs (grams)</label>
-                    <input type="number" id="carbs" name="carbs" step="0.1" class="p-2 border rounded w-full" required>
-                </div>
+           
                 <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Add Food</button>
             </form>
         </div>
@@ -159,7 +155,6 @@ try {
                                             data-name="${food.food_name}" 
                                             data-protein="${food.protein}" 
                                             data-calorie="${food.calorie}" 
-                                            data-carbs="${food.carbs}"
                                         >
                                             +
                                         </button>
@@ -205,3 +200,4 @@ try {
     </script>
 </body>
 </html>
+
