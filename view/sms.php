@@ -89,6 +89,7 @@ try {
                 INSERT INTO sms_notifications (user_id, notification_type, notification_sent_at) 
                 VALUES (:user_id, :notification_type, NOW())
             ");
+            
             $stmt->execute([
                 ':user_id' => $userId,
                 ':notification_type' => 'protein_reminder',
