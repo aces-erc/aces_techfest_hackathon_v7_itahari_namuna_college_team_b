@@ -7,7 +7,7 @@ try {
     $stmt = $db->prepare("
         SELECT 
             u.user_id, u.full_name, u.age, u.weight, u.height, u.weekly_activities, u.consumed_protein, 
-            bs.bmi, bs.protein_goal, bs.calories_goal, bs.weight_recommendation, bs.weight_goal
+            bs.bmi, bs.protein_goal, bs.calories_goal, bs.weight_recommendation
         FROM users u
         LEFT JOIN body_stats bs ON u.user_id = bs.user_id
         WHERE u.user_id = :user_id
@@ -145,7 +145,6 @@ $proteinPercentage = min(100, round(($user['consumed_protein'] / $user['protein_
                     ['title' => 'Calories Goal', 'value' => $user['calories_goal'], 'unit' => 'kcal/day', 'decimals' => 0],
                     ['title' => 'Recommended Weight', 'value' => $user['weight_recommendation'], 'unit' => 'kg', 'decimals' => 1],
                     ['title' => 'Current Weight', 'value' => $user['weight'], 'unit' => 'kg', 'decimals' => 1],
-                    ['title' => 'Goal Weight', 'value' => $user['weight_goal'], 'unit' => 'kg', 'decimals' => 1],
                 ];
 
                 foreach ($cards as $index => $card):
@@ -219,4 +218,5 @@ $proteinPercentage = min(100, round(($user['consumed_protein'] / $user['protein_
     </script>
 </body>
 </html>
+
 
