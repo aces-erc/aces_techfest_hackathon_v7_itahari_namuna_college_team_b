@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="food_log.php"
+                <a href="food.php"
                     class="text-black text-sm flex items-center hover:text-[#007bff] hover:border-r-[5px] border-[#077bff] hover:bg-gray-100 px-8 py-4 transition-all">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-[18px] h-[18px] mr-4"
                         viewBox="0 0 24 24">
