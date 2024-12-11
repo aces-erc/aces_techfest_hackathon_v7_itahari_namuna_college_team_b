@@ -100,7 +100,6 @@ try {
                             <?php echo htmlspecialchars($food['food_name'], ENT_QUOTES, 'UTF-8'); ?> 
                             (Protein: <?php echo htmlspecialchars($food['protein'], ENT_QUOTES, 'UTF-8'); ?>g, 
                             Calories: <?php echo htmlspecialchars($food['calorie'], ENT_QUOTES, 'UTF-8'); ?> kcal, 
-                            Carbs: <?php echo htmlspecialchars($food['carbs'], ENT_QUOTES, 'UTF-8'); ?>g)
                         </li>
                     <?php endforeach; ?>
                 <?php else: ?>
