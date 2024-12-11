@@ -13,7 +13,7 @@
         <div class="mb-6">
             <form id="filterForm" class="flex space-x-4">
                 <select name="location" id="location" class="p-2 border rounded">
-                    <option value="all">All Locations</option>
+                    <option value="all" selected>All Locations</option>
                     <option value="Itahari">Itahari</option>
                     <option value="Morang">Morang</option>
                     <option value="Biratnagar">Biratnagar</option>
@@ -30,7 +30,7 @@
         $(document).ready(function () {
             function loadInstitutes(location = 'all') {
                 $.ajax({
-                    url: '../controller/fetch_explore.php', // Endpoint to fetch data
+                    url: '../controller/fetch_explore.php',
                     method: 'GET',
                     data: { location: location },
                     success: function (response) {
