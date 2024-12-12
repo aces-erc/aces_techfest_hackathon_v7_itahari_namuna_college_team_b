@@ -1,7 +1,7 @@
 <?php
 include_once 'config/db.php'; // Include database connection
 session_start();
-
+// hello world
 // Handle login logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']); // Could be phone or email
