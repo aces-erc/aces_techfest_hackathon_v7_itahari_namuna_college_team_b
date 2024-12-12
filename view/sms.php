@@ -75,25 +75,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-<script>
-    function checkProteinProgress() {
-        fetch('../controller/sms.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    console.log(data.message); // Log success message
-                } else if (data.status === 'info') {
-                    console.log(data.message); // Log info message
-                } else {
-                    console.error(data.message); // Log error
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    // Check protein progress every 5 minutes
-    setInterval(checkProteinProgress, 300000); // 300000 ms = 5 minutes
-</script>

@@ -34,6 +34,13 @@ try {
 <body class="bg-gray-100 text-gray-800 min-h-screen">
     <?php include_once '../includes/sidebar.php'; ?>
 
+    <!-- Top bar with 2FA Button -->
+    <div class="flex justify-end items-center bg-white shadow-md px-6 py-4 sticky top-0 z-10">
+        <a href="../2fa.php" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out">
+            <i class="fas fa-shield-alt mr-2"></i>Enable 2FA
+        </a>
+    </div>
+
     <div class="ml-64 p-8">
         <div class="max-w-4xl mx-auto">
             <div id="message" class="mb-4"></div>
@@ -63,82 +70,82 @@ try {
                     </div>
 
                     <form id="profileForm" class="space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Full Name -->
-        <div class="space-y-2">
-            <label for="full_name" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-user mr-2 text-blue-500"></i>Full Name
-            </label>
-            <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <!-- Email -->
-        <div class="space-y-2">
-            <label for="email" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-envelope mr-2 text-blue-500"></i>Email
-            </label>
-            <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <!-- Age -->
-        <div class="space-y-2">
-            <label for="age" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-birthday-cake mr-2 text-blue-500"></i>Age
-            </label>
-            <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($user['age']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <!-- Weight -->
-        <div class="space-y-2">
-            <label for="weight" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-weight mr-2 text-blue-500"></i>Weight (kg)
-            </label>
-            <input type="number" id="weight" name="weight" value="<?php echo htmlspecialchars($user['weight']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <!-- Height -->
-        <div class="space-y-2">
-            <label for="height" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-ruler-vertical mr-2 text-blue-500"></i>Height (cm)
-            </label>
-            <input type="number" id="height" name="height" value="<?php echo htmlspecialchars($user['height']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-        <!-- Weekly Activities -->
-        <div class="space-y-2">
-            <label for="weekly_activities" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-running mr-2 text-blue-500"></i>Weekly Activities
-            </label>
-            <select id="weekly_activities" name="weekly_activities" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="highly_active" <?php echo $user['weekly_activities'] === 'highly_active' ? 'selected' : ''; ?>>Highly Active</option>
-                <option value="active" <?php echo $user['weekly_activities'] === 'active' ? 'selected' : ''; ?>>Active</option>
-                <option value="normal" <?php echo $user['weekly_activities'] === 'normal' ? 'selected' : ''; ?>>Normal</option>
-            </select>
-        </div>
-        <!-- Gender -->
-        <div class="space-y-2">
-            <label for="gender" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-venus-mars mr-2 text-blue-500"></i>Gender
-            </label>
-            <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($user['gender']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
-        </div>
-        <!-- Consumed Protein -->
-        <div class="space-y-2">
-            <label for="consumed_protein" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-drumstick-bite mr-2 text-blue-500"></i>Consumed Protein (g)
-            </label>
-            <input type="number" id="consumed_protein" name="consumed_protein" value="<?php echo htmlspecialchars($user['consumed_protein']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
-        </div>
-        <!-- Water Goal -->
-        <div class="space-y-2">
-            <label for="water_goal" class="block text-sm font-medium text-gray-700">
-                <i class="fas fa-tint mr-2 text-blue-500"></i>Water Goal (ml)
-            </label>
-            <input type="number" id="water_goal" name="water_goal" value="<?php echo htmlspecialchars($user['water_goal']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
-        </div>
-    </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="space-y-2">
+                                <label for="full_name" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-user mr-2 text-blue-500"></i>Full Name
+                                </label>
+                                <input type="text" id="full_name" name="full_name" value="<?php echo htmlspecialchars($user['full_name']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Email -->
+                            <div class="space-y-2">
+                                <label for="email" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-envelope mr-2 text-blue-500"></i>Email
+                                </label>
+                                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Age -->
+                            <div class="space-y-2">
+                                <label for="age" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-birthday-cake mr-2 text-blue-500"></i>Age
+                                </label>
+                                <input type="number" id="age" name="age" value="<?php echo htmlspecialchars($user['age']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Weight -->
+                            <div class="space-y-2">
+                                <label for="weight" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-weight mr-2 text-blue-500"></i>Weight (kg)
+                                </label>
+                                <input type="number" id="weight" name="weight" value="<?php echo htmlspecialchars($user['weight']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Height -->
+                            <div class="space-y-2">
+                                <label for="height" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-ruler-vertical mr-2 text-blue-500"></i>Height (cm)
+                                </label>
+                                <input type="number" id="height" name="height" value="<?php echo htmlspecialchars($user['height']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <!-- Weekly Activities -->
+                            <div class="space-y-2">
+                                <label for="weekly_activities" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-running mr-2 text-blue-500"></i>Weekly Activities
+                                </label>
+                                <select id="weekly_activities" name="weekly_activities" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="highly_active" <?php echo $user['weekly_activities'] === 'highly_active' ? 'selected' : ''; ?>>Highly Active</option>
+                                    <option value="active" <?php echo $user['weekly_activities'] === 'active' ? 'selected' : ''; ?>>Active</option>
+                                    <option value="normal" <?php echo $user['weekly_activities'] === 'normal' ? 'selected' : ''; ?>>Normal</option>
+                                </select>
+                            </div>
+                            <!-- Gender -->
+                            <div class="space-y-2">
+                                <label for="gender" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-venus-mars mr-2 text-blue-500"></i>Gender
+                                </label>
+                                <input type="text" id="gender" name="gender" value="<?php echo htmlspecialchars($user['gender']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
+                            </div>
+                            <!-- Consumed Protein -->
+                            <div class="space-y-2">
+                                <label for="consumed_protein" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-drumstick-bite mr-2 text-blue-500"></i>Consumed Protein (g)
+                                </label>
+                                <input type="number" id="consumed_protein" name="consumed_protein" value="<?php echo htmlspecialchars($user['consumed_protein']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
+                            </div>
+                            <!-- Water Goal -->
+                            <div class="space-y-2">
+                                <label for="water_goal" class="block text-sm font-medium text-gray-700">
+                                    <i class="fas fa-tint mr-2 text-blue-500"></i>Water Goal (ml)
+                                </label>
+                                <input type="number" id="water_goal" name="water_goal" value="<?php echo htmlspecialchars($user['water_goal']); ?>" class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-100" readonly>
+                            </div>
+                        </div>
 
-    <div class="flex justify-end">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
-            <i class="fas fa-save mr-2"></i>Update Profile
-        </button>
-    </div>
-</form>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                                <i class="fas fa-save mr-2"></i>Update Profile
+                            </button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
