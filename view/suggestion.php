@@ -21,7 +21,7 @@
         }
         .message.user {
             background-color: #1E40AF;
-            color: white;
+            color: black;
             border-radius: 20px 20px 0 20px;
         }
         .message.bot {
@@ -78,7 +78,7 @@
                     AI is thinking...
                 </div>
                 <div class="flex items-center space-x-4">
-                    <input id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300">
+                    <input style="color:black" id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300 color-black">
                     <button onclick="sendMessage()" class="bg-[#1E40AF] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E40AF]">Send</button>
                 </div>
             </div>

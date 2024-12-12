@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/navbar.php'); ?>
+<?php include  'navbar.php'; ?>
 
 <body class="bg-gray-100">
     <div class="container mx-auto p-8">

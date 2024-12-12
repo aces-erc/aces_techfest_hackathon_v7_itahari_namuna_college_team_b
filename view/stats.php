@@ -47,6 +47,16 @@
             z-index: 10;
             transition: opacity 0.3s ease;
         }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            background-color: white;
+            z-index: 40;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -54,7 +64,14 @@
     <?php include_once '../includes/sidebar.php'; ?>
 
     <div class="ml-[250px] p-6 min-h-screen relative">
-        <div class="max-w-7xl mx-auto">
+        <div class="fixed-header flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-600">Workout Calendar</h1>
+            <a href="report.php" class="p-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors duration-300">
+                <i class="fas fa-chart-bar"></i>
+            </a>
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-20">
             <div class="bg-white rounded-lg shadow-lg p-6">
                 <!-- Calendar Header -->
                 <div class="flex items-center justify-between mb-6">
@@ -282,7 +299,7 @@
             return '<i class="fas fa-running text-green-500 text-sm"></i>';
         }
 
-        function convertToNepaliNumeral(number) {
+        function convertToNepaliNumeral(nuamber) {
             const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
             return number.toString().split('').map(digit => nepaliNumerals[parseInt(digit)]).join('');
         }
