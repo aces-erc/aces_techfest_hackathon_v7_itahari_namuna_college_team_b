@@ -79,11 +79,10 @@
                     <span class="text-sm">Online</span>
                 </div>
             </div>
-            <div class="p-4 flex flex-wrap gap-4">
+            <div class="p-2 flex flex-wrap gap-4">
                 <!-- Default prompts -->
                 <span class="default-prompt" onclick="selectPrompt('What\'s my body condition?')">What's my body condition?</span>
                 <span class="default-prompt" onclick="selectPrompt('How to drink water?')">How to drink water?</span>
-                <span class="default-prompt" onclick="selectPrompt('What\'s a balanced diet?')">What's a balanced diet?</span>
                 <span class="default-prompt" onclick="selectPrompt('How can I increase protein intake?')">How can I increase protein intake?</span>
             </div>
             <div id="message-container" class="h-[calc(100vh-300px)] p-6 overflow-y-auto space-y-6"></div>
@@ -172,3 +171,4 @@
     </script>
 </body>
 </html>
+
