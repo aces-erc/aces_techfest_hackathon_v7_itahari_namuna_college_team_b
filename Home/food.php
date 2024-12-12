@@ -49,7 +49,7 @@ if (isset($_GET['ajax_search'])) {
     </style>
 </head>
 <body class="bg-blue-200 min-h-screen">
-<?php include  'navbar.php'; ?>
+<?php include 'navbar.php'; ?>
     <div class="pt-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div class="search-container">
             <i class="uil uil-search search-icon"></i>

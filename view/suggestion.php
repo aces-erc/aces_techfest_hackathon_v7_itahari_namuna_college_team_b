@@ -21,7 +21,7 @@
         }
         .message.user {
             background-color: #1E40AF;
-            color: black;
+            color: white;
             border-radius: 20px 20px 0 20px;
         }
         .message.bot {
@@ -53,6 +53,19 @@
             0%, 100% { opacity: 0.4; }
             50% { opacity: 1; }
         }
+        .default-prompt {
+            background-color: #F3F4F6;
+            color: #1E40AF;
+            border: 1px solid #1E40AF;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .default-prompt:hover {
+            background-color: #1E40AF;
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-[#1E40AF] text-white min-h-screen">
@@ -67,6 +80,13 @@
                     <span class="text-sm">Online</span>
                 </div>
             </div>
+            <div class="p-4 flex flex-wrap gap-4">
+                <!-- Default prompts -->
+                <span class="default-prompt" onclick="selectPrompt('What\'s my body condition?')">What's my body condition?</span>
+                <span class="default-prompt" onclick="selectPrompt('How to drink water?')">How to drink water?</span>
+                <span class="default-prompt" onclick="selectPrompt('What\'s a balanced diet?')">What's a balanced diet?</span>
+                <span class="default-prompt" onclick="selectPrompt('How can I increase protein intake?')">How can I increase protein intake?</span>
+            </div>
             <div id="message-container" class="h-[calc(100vh-300px)] p-6 overflow-y-auto space-y-6"></div>
             <div class="bg-gray-100 p-6">
                 <div id="typing-indicator" class="text-[#1E40AF] text-sm mb-2 hidden">
@@ -78,7 +98,7 @@
                     AI is thinking...
                 </div>
                 <div class="flex items-center space-x-4">
-                    <input style="color:black" id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300 color-black">
+                    <input style="color:black" id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300">
                     <button onclick="sendMessage()" class="bg-[#1E40AF] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E40AF]">Send</button>
                 </div>
             </div>
@@ -137,30 +157,19 @@
             messageDiv.className = `message ${type} p-4 max-w-[75%] shadow-md`;
             messageDiv.textContent = content;
             messageContainer.appendChild(messageDiv);
-            
+
             // Trigger reflow to enable transition
             messageDiv.offsetHeight;
-            
+
             messageDiv.classList.add('show');
             messageContainer.scrollTop = messageContainer.scrollHeight;
             return messageDiv;
         }
 
-        // Intersection Observer for lazy loading messages
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        // Observe existing messages
-        document.querySelectorAll('.message').forEach(message => {
-            observer.observe(message);
-        });
+        function selectPrompt(prompt) {
+            document.getElementById('user-input').value = prompt;
+            sendMessage();
+        }
     </script>
 </body>
 </html>
-

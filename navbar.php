@@ -53,17 +53,17 @@
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="../index.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Home</a>
-                    <a href="food.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Foods</a>
-                    <a href="about.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">About</a>
-                    <a href="explore.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Explore</a>
+                    <a href="index.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Home</a>
+                    <a href="Home/food.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Foods</a>
+                    <a href="Home/about.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">About</a>
+                    <a href="Home/explore.php" class="nav-item text-gray-700 hover:text-indigo-600 transition-colors duration-300">Explore</a>
                     <div class="flex items-center space-x-4">
-                        <a href="../login.php"> 
+                        <a href="login.php"> 
                     <button class="px-6 py-2 rounded-full bg-white text-indigo-600 hover:bg-indigo-50 transition-all duration-300 shadow-md hover:shadow-lg">
                             Login
                         </button>
                         </a>
-                        <a href="../signup.php"> 
+                        <a href="signup.php"> 
                         <button class="px-6 py-2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                             Sign Up
                         </button>
