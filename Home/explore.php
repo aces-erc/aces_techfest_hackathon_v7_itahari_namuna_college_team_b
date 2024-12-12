@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<?php include 'navbar.php'; ?>
-
+<?php include  'navbar.php'; ?>
 <body class="bg-gray-100">
+
     <div class="container mx-auto p-8">
         <h1 class="text-3xl font-bold mb-6 mt-20">Explore Fitness Institutes</h1>
         <div class="mb-6">
