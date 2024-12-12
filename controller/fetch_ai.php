@@ -54,7 +54,7 @@ function getOpenRouterResponse($prompt) {
     $url = 'https://openrouter.ai/api/v1/chat/completions';
 
     $data = [
-        'model' => 'openai/gpt-3.5-turbo',
+        'model' => 'openai/gpt-4o-2024-11-20',
         'messages' => [
             ['role' => 'system', 'content' => 'You are a concise nutrition expert. Keep your responses under 70 words.'],
             ['role' => 'user', 'content' => $prompt]

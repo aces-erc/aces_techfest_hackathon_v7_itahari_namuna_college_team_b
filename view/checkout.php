@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: khalti.php?order_id=" . $db->lastInsertId());
             exit();
         } else {
-            header("Location: bank_payment.php?order_id=" . $db->lastInsertId());
+            header("Location: manualpay.php?order_id=" . $db->lastInsertId());
             exit();
         }
     }

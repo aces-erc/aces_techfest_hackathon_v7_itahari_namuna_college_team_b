@@ -8,7 +8,7 @@ $requestData = json_decode(file_get_contents('php://input'), true);
 $userMessage = $requestData['query'] ?? '';
 
 if (!$userMessage) {
-    echo json_encode(['reply' => 'No input provided.']);
+    echo json_encode(['reply' => 'कुनै इनपुट प्रदान गरिएको छैन। कृपया प्रयास गर्नुहोस्।']);
     exit;
 }
 
@@ -16,7 +16,7 @@ if (!$userMessage) {
 $data = [
     "model" => "gpt-3.5-turbo",
     "messages" => [
-        ["role" => "system", "content" => "You are a helpful assistant."],
+        ["role" => "system", "content" => "तपाईं नेपाली भाषामा मात्र उत्तर दिनुहुनेछ। तपाईंको नाम 'Gyan Fit' हो। जब कसैले तपाईंको नाम सोध्छ, तपाईँ 'मेरो नाम Gyan Fit हो' भनेर उत्तर दिनुहुनेछ।"],
         ["role" => "user", "content" => $userMessage],
     ],
     "temperature" => 0.7,
@@ -36,11 +36,12 @@ $context  = stream_context_create($options);
 $response = file_get_contents($apiUrl, false, $context);
 
 if ($response === FALSE) {
-    echo json_encode(['reply' => 'Failed to fetch AI response.']);
+    echo json_encode(['reply' => 'AI सर्भरसँग जडान गर्न असफल भयो। कृपया फेरि प्रयास गर्नुहोस्।']);
     exit;
 }
 
 // Decode and send the response
 $responseData = json_decode($response, true);
-$aiReply = $responseData['choices'][0]['message']['content'] ?? "Sorry, I couldn't process your request.";
+$aiReply = $responseData['choices'][0]['message']['content'] ?? "माफ गर्नुहोस्, म तपाईंको अनुरोध प्रक्रिया गर्न असमर्थ छु।";
 echo json_encode(['reply' => $aiReply]);
+
