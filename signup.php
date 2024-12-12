@@ -16,6 +16,7 @@
         }
     </style>
 </head>
+
 <body class="gradient-bg text-white min-h-screen flex items-center justify-center">
 
 <div class="w-full max-w-lg bg-white rounded-lg shadow-2xl p-8 text-blue-900">
