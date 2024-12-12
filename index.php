@@ -328,9 +328,8 @@
 
     <!--  -->
     <!-- Add this right before the Feature Cards section -->
-
-<!-- FAQ Section -->
-<section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+<!-- faq -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16">
             <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
@@ -340,39 +339,57 @@
         <div class="grid gap-8 max-w-3xl mx-auto">
             <!-- FAQ Item 1 -->
             <div class="rounded-lg border border-gray-200">
-                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                <button 
+                    class="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+                    onclick="toggleFAQ(this)"
+                >
                     <span class="text-lg font-semibold">How do I get started with GYANFIT AI?</span>
                     <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
                 </button>
-                <div class="hidden p-6 pt-0 text-gray-600">
-                    Simply click the "Get Started Free" button, create your account, and follow our easy setup guide. You'll be able to start tracking your fitness journey in minutes!
+                <div class="faq-content hidden max-h-0 overflow-hidden transition-all duration-500">
+                    <p class="p-6 pt-0 text-gray-600">
+                        Simply click the "Get Started Free" button, create your account, and follow our easy setup guide. You'll be able to start tracking your fitness journey in minutes!
+                    </p>
                 </div>
             </div>
 
             <!-- FAQ Item 2 -->
             <div class="rounded-lg border border-gray-200">
-                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                <button 
+                    class="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+                    onclick="toggleFAQ(this)"
+                >
                     <span class="text-lg font-semibold">What features are included in the free plan?</span>
                     <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
                 </button>
-                <div class="hidden p-6 pt-0 text-gray-600">
-                    The free plan includes basic health tracking, workout planning, and progress analytics. You can track your daily activities, create custom workouts, and view basic performance metrics.
+                <div class="faq-content hidden max-h-0 overflow-hidden transition-all duration-500">
+                    <p class="p-6 pt-0 text-gray-600">
+                        The free plan includes basic health tracking, workout planning, and progress analytics. You can track your daily activities, create custom workouts, and view basic performance metrics.
+                    </p>
                 </div>
             </div>
 
             <!-- FAQ Item 3 -->
             <div class="rounded-lg border border-gray-200">
-                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                <button 
+                    class="w-full flex justify-between items-center p-6 text-left focus:outline-none"
+                    onclick="toggleFAQ(this)"
+                >
                     <span class="text-lg font-semibold">Can I sync GYANFIT AI with my fitness devices?</span>
                     <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
                 </button>
-                <div class="hidden p-6 pt-0 text-gray-600">
-                    Yes! GYANFIT AI supports integration with most popular fitness devices and apps. You can sync your data seamlessly for a complete fitness tracking experience.
+                <div class="faq-content hidden max-h-0 overflow-hidden transition-all duration-500">
+                    <p class="p-6 pt-0 text-gray-600">
+                        Yes! GYANFIT AI supports integration with most popular fitness devices and apps. You can sync your data seamlessly for a complete fitness tracking experience.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+<!--  -->
+
 <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
     <!-- Chat Icon -->
     <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300">
@@ -414,6 +431,32 @@
 </div>
 
 <script>
+
+    // faq
+    function toggleFAQ(button) {
+    const faqContent = button.nextElementSibling;
+    const icon = button.querySelector('i');
+
+    // Check if the content is hidden
+    if (faqContent.classList.contains('hidden')) {
+        // Show the content
+        faqContent.classList.remove('hidden');
+        faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+        icon.classList.add('rotate-180');
+    } else {
+        // Hide the content
+        faqContent.style.maxHeight = '0px';
+        faqContent.addEventListener(
+            'transitionend',
+            () => {
+                faqContent.classList.add('hidden');
+            },
+            { once: true }
+        );
+        icon.classList.remove('rotate-180');
+    }
+}
+
     // Toggle Chat Window
     function toggleChat() {
         const chatWindow = document.getElementById('chat-window');
