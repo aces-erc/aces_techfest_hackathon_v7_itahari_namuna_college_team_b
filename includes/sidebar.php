@@ -18,7 +18,7 @@
         }
     </script>
 </head>
-<body class="font-sans bg-gray-100">
+<body class="font-sans bg-gray-200">
     <div class="flex">
         <!-- Sidebar -->
         <nav id="sidebar" class="bg-white shadow-xl h-screen fixed top-0 left-0 w-64 py-6 overflow-hidden transition-all duration-300 ease-in-out z-50">

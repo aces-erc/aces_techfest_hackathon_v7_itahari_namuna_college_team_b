@@ -68,7 +68,7 @@
         }
     </style>
 </head>
-<body class="bg-[#1E40AF] text-white min-h-screen">
+<body class="bg-blue-300 text-white min-h-screen">
     <?php include_once '../includes/sidebar.php'; ?>
     <div class="ml-64 mt-1 flex flex-col items-center justify-center min-h-screen">
         <div class="bg-white w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">

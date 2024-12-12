@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 <body class="bg-white">
-    <div class="min-h-screen flex items-center justify-center px-4 py-8 bg-blue-700">
+    <div class="min-h-screen flex items-center justify-center px-4 py-8 bg-blue-300">
         <div class="w-full max-w-md">
             <?php if (!empty($error)): ?>
                 <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
