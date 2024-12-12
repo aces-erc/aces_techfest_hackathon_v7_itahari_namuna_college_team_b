@@ -33,6 +33,7 @@ try {
     <title><?php echo htmlspecialchars($institute['institute_name'], ENT_QUOTES, 'UTF-8'); ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<?php include($_SERVER['DOCUMENT_ROOT'] . '/navbar.php'); ?>
 <body class="bg-gray-100">
     <div class="container mx-auto p-8">
         <h1 class="text-3xl font-bold mb-6 text-gray-800"><?php echo htmlspecialchars($institute['institute_name'], ENT_QUOTES, 'UTF-8'); ?></h1>

@@ -12,45 +12,74 @@
         }
         .message {
             transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
         }
-        .message:hover {
-            transform: translateY(-2px);
+        .message.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         .message.user {
-            background-color: #bfdbfe;
+            background-color: #1E40AF;
+            color: white;
             border-radius: 20px 20px 0 20px;
         }
         .message.bot {
-            background-color: #e5e7eb;
+            background-color: white;
+            color: #1E40AF;
             border-radius: 20px 20px 20px 0;
+            border: 1px solid #1E40AF;
         }
         .typing-indicator {
-            animation: pulse 1s infinite;
+            display: inline-block;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #1E40AF;
+            border-radius: 50%;
+            margin: 0 2px;
+            opacity: 0.4;
+            animation: typing 1s infinite;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typing {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen text-gray-800">
+<body class="bg-[#1E40AF] text-white min-h-screen">
     <?php include_once '../includes/sidebar.php'; ?>
     <div class="ml-64 p-8 flex flex-col items-center justify-center min-h-screen">
-        <h1 class="text-2xl font-bold mb-8 text-blue-800">Ask AI Suggestions</h1>
-        <div class="bg-white w-full max-w-4xl rounded-lg shadow-lg overflow-hidden">
-            <div class="bg-blue-600 text-white p-4 flex justify-between items-center">
-                <h2 class="text-xl">AI Nutrition Chat</h2>
+        <h1 class="text-3xl font-bold mb-8 text-white">AI Nutrition Suggestions</h1>
+        <div class="bg-white w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+            <div class="bg-[#1E40AF] text-white p-6 flex justify-between items-center">
+                <h2 class="text-2xl font-semibold">AI Nutrition Chat</h2>
                 <div class="flex items-center">
-                    <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                    <span>Online</span>
+                    <span class="w-3 h-3 bg-green-400 rounded-full mr-2"></span>
+                    <span class="text-sm">Online</span>
                 </div>
             </div>
-            <div id="message-container" class="h-96 p-4 overflow-y-auto space-y-4"></div>
-            <div class="bg-gray-100 p-4">
-                <p id="typing-indicator" class="text-gray-500 text-sm hidden">AI is typing...</p>
+            <div id="message-container" class="h-[calc(100vh-300px)] p-6 overflow-y-auto space-y-6"></div>
+            <div class="bg-gray-100 p-6">
+                <div id="typing-indicator" class="text-[#1E40AF] text-sm mb-2 hidden">
+                    <div class="typing-indicator">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    AI is thinking...
+                </div>
                 <div class="flex items-center space-x-4">
-                    <input id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-2 border rounded">
-                    <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+                    <input id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300">
+                    <button onclick="sendMessage()" class="bg-[#1E40AF] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E40AF]">Send</button>
                 </div>
             </div>
         </div>
@@ -72,6 +101,7 @@
 
             addMessage(userInputValue, 'user');
             userInput.value = '';
+            userInput.focus();
 
             typingIndicator.classList.remove('hidden');
 
@@ -92,7 +122,7 @@
                     if (done) break;
 
                     botMessage += decoder.decode(value);
-                    await displayTypingEffect(messageElement, botMessage);
+                    messageElement.textContent = botMessage;
                 }
 
                 typingIndicator.classList.add('hidden');
@@ -104,20 +134,33 @@
 
         function addMessage(content, type) {
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${type} p-4 max-w-[75%]`;
+            messageDiv.className = `message ${type} p-4 max-w-[75%] shadow-md`;
             messageDiv.textContent = content;
             messageContainer.appendChild(messageDiv);
+            
+            // Trigger reflow to enable transition
+            messageDiv.offsetHeight;
+            
+            messageDiv.classList.add('show');
             messageContainer.scrollTop = messageContainer.scrollHeight;
             return messageDiv;
         }
 
-        async function displayTypingEffect(element, text) {
-            const delay = 20;
-            for (let i = element.textContent.length; i < text.length; i++) {
-                element.textContent += text[i];
-                await new Promise((resolve) => setTimeout(resolve, delay));
-            }
-        }
+        // Intersection Observer for lazy loading messages
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe existing messages
+        document.querySelectorAll('.message').forEach(message => {
+            observer.observe(message);
+        });
     </script>
 </body>
 </html>
+

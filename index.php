@@ -81,8 +81,7 @@
   
 
 <?php include 'Home/navbar.php'; ?>
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+<section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-white -z-10"></div>
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
