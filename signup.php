@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -15,6 +14,7 @@
     </style>
 </head>
 
+<body class="gradient-bg text-white min-h-screen flex items-center justify-center">
 <body class="bg-blue-300 text-white min-h-screen flex items-center justify-center">
 
 <div class="w-full max-w-lg bg-white rounded-lg shadow-2xl p-8 text-blue-900">
@@ -29,7 +29,6 @@
                 <input type="text" name="full_name" id="full_name" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="mb-6">
                 <label for="phone" class="block font-medium mb-2">Phone</label>
                 <input type="tel" name="phone" id="phone" required
@@ -40,7 +39,6 @@
                 <input type="email" name="email" id="email" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="flex justify-end">
                 <button type="button" onclick="nextStep()"
                     class="bg-blue-900 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition">
@@ -57,13 +55,11 @@
                 <input type="password" name="password" id="password" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="mb-6">
                 <label for="confirm_password" class="block font-medium mb-2">Confirm Password</label>
                 <input type="password" name="confirm_password" id="confirm_password" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="flex justify-between">
                 <button type="button" onclick="prevStep()"
                     class="bg-gray-300 text-blue-900 py-2 px-6 rounded-md hover:bg-gray-400 transition">
@@ -84,19 +80,16 @@
                 <input type="number" name="age" id="age" min="1" max="100" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="mb-6">
                 <label for="weight" class="block font-medium mb-2">Weight (kg)</label>
                 <input type="number" name="weight" id="weight" min="1" step="0.1" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="mb-6">
                 <label for="height" class="block font-medium mb-2">Height (cm)</label>
                 <input type="number" name="height" id="height" min="1" step="0.1" required
                     class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
             </div>
-
             <div class="flex justify-between">
                 <button type="button" onclick="prevStep()"
                     class="bg-gray-300 text-blue-900 py-2 px-6 rounded-md hover:bg-gray-400 transition">
@@ -109,7 +102,7 @@
             </div>
         </div>
 
-        <!-- Step 4: Weekly Activities -->
+        <!-- Step 4: Weekly Activities and CAPTCHA -->
         <div class="step step-4 hidden">
             <h2 class="text-xl font-semibold mb-4 text-center">Weekly Activity</h2>
             <div class="mb-6">
@@ -122,7 +115,14 @@
                     <option value="normal">Normal</option>
                 </select>
             </div>
-
+            <div class="mb-6">
+                <label for="captcha" class="block font-medium mb-2">Enter CAPTCHA</label>
+                <div class="flex items-center space-x-4">
+                    <img src="captcha.php" alt="CAPTCHA" class="border border-gray-300 rounded-md">
+                    <input type="text" name="captcha" id="captcha" required
+                        class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500">
+                </div>
+            </div>
             <div class="flex justify-between">
                 <button type="button" onclick="prevStep()"
                     class="bg-gray-300 text-blue-900 py-2 px-6 rounded-md hover:bg-gray-400 transition">
@@ -167,10 +167,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-

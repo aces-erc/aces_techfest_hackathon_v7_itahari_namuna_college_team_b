@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 use Xentira\KhaltiSdk\Khalti;
 
+
 // Load Khalti configuration
 $config = require 'config/khalti_config.php';
 
