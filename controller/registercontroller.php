@@ -50,6 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Calculate Recommended Weight (based on BMI of 22.5)
     $recommended_weight = 22.5 * (($height / 100) ** 2);
 
+    // Calculate Water Goal
+    $water_goal = $weight * 35; // In milliliters
+
     // Insert user data into the database
     try {
         // Begin transaction
@@ -58,9 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert into users table
         $stmt = $db->prepare("
             INSERT INTO users 
-            (full_name, phone, email, password, age, weight, height, weekly_activities, status) 
+            (full_name, phone, email, password, age, weight, height, weekly_activities, status, water_goal) 
             VALUES 
-            (:full_name, :phone, :email, :password, :age, :weight, :height, :weekly_activities, 'active')
+            (:full_name, :phone, :email, :password, :age, :weight, :height, :weekly_activities, 'active', :water_goal)
         ");
         $stmt->execute([
             ':full_name' => $full_name,
@@ -71,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':weight' => $weight,
             ':height' => $height,
             ':weekly_activities' => $weekly_activities,
+            ':water_goal' => $water_goal,
         ]);
 
         // Get the last inserted user ID

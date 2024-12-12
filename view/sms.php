@@ -10,95 +10,90 @@ use Twilio\Rest\Client;
 
 // Twilio credentials
 $sid = "ACba494322e03e6d0db251c7ec1a1b09d1"; // Replace with your SID
-$token = "a40d42546469f725c2c14e5c0cb080e5"; // Replace with your Auth Token
+$token = "a05160deb493d06c62e87d1f9d217be4"; // Replace with your Auth Token
 $twilioPhoneNumber = "+13203356186"; // Replace with your Twilio number
 
-// Ensure the user is logged in
-if (!isset($_SESSION['user_id'])) {
-    die("User not logged in.");
-}
-
-$userId = $_SESSION['user_id']; // Get logged-in user's ID
-$today = date('Y-m-d'); // Get today's date
-
-try {
-    // Fetch the user's data and protein progress
-    $stmt = $db->prepare("
-        SELECT 
-            u.full_name, u.phone, u.consumed_protein, bs.protein_goal 
-        FROM users u
-        LEFT JOIN body_stats bs ON u.user_id = bs.user_id
-        WHERE u.user_id = :user_id AND u.phone IS NOT NULL
-    ");
-    $stmt->execute([':user_id' => $userId]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$user) {
-        die("User data not found or phone number missing.");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ensure the user is logged in
+    if (!isset($_SESSION['user_id'])) {
+        die(json_encode(['status' => 'error', 'message' => 'User not logged in.']));
     }
 
-    $fullName = $user['full_name'];
-    $phoneNumber = $user['phone'];
-    $consumedProtein = $user['consumed_protein'];
-    $proteinGoal = $user['protein_goal'];
+    $userId = $_SESSION['user_id']; // Get logged-in user's ID
 
-    // Calculate the percentage of the protein goal achieved
-    $proteinPercentage = ($consumedProtein / $proteinGoal) * 100;
+    try {
+        // Fetch the user's data and protein progress
+        $stmt = $db->prepare("
+            SELECT 
+                u.full_name, u.phone, u.consumed_protein, bs.protein_goal 
+            FROM users u
+            LEFT JOIN body_stats bs ON u.user_id = bs.user_id
+            WHERE u.user_id = :user_id AND u.phone IS NOT NULL
+        ");
+        $stmt->execute([':user_id' => $userId]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Format phone number (ensure international format if not already)
-    if (!preg_match('/^\+/', $phoneNumber)) {
-        $phoneNumber = '+977' . preg_replace('/\D/', '', $phoneNumber); // Assuming Nepal (+977)
-    }
+        if (!$user) {
+            die(json_encode(['status' => 'error', 'message' => 'User data not found or phone number missing.']));
+        }
 
-    // Create a Twilio client
-    $twilio = new Client($sid, $token);
+        $fullName = $user['full_name'];
+        $phoneNumber = $user['phone'];
+        $consumedProtein = $user['consumed_protein'];
+        $proteinGoal = $user['protein_goal'];
 
-    // Send a message when the user reaches 50% of their protein goal
-    if ($proteinPercentage >= 50 && $proteinPercentage < 100) {
-        $message = $twilio->messages->create(
-            $phoneNumber,
-            [
-                'from' => $twilioPhoneNumber,
-                'body' => "{$fullName}, your protein goal is half completed! Great job, keep going!",
-            ]
-        );
-        echo "50% progress message sent to {$fullName} at {$phoneNumber}. SID: " . $message->sid . "\n";
-    }
+        // Calculate the percentage of the protein goal achieved
+        $proteinPercentage = ($consumedProtein / $proteinGoal) * 100;
 
-    // Send reminder every 2 hours if the goal is not yet completed
-    if ($proteinPercentage < 100) {
-        $lastReminderTime = $db->query("
-            SELECT MAX(notification_sent_at) 
-            FROM sms_notifications 
-            WHERE user_id = {$userId} AND DATE(notification_sent_at) = '{$today}' 
-              AND notification_type = 'protein_reminder'
-        ")->fetchColumn();
+        // Format phone number (ensure international format if not already)
+        if (!preg_match('/^\+/', $phoneNumber)) {
+            $phoneNumber = '+977' . preg_replace('/\D/', '', $phoneNumber); // Assuming Nepal (+977)
+        }
 
-        // Check if the last reminder was sent more than 2 hours ago
-        if (!$lastReminderTime || (time() - strtotime($lastReminderTime)) > 7200) {
+        // Send SMS when protein percentage crosses 50%
+        if ($proteinPercentage >= 50) {
+            // Create a Twilio client
+            $twilio = new Client($sid, $token);
+
             $message = $twilio->messages->create(
                 $phoneNumber,
                 [
                     'from' => $twilioPhoneNumber,
-                    'body' => "{$fullName}, don't forget to eat some protein! Keep it up!",
+                    'body' => "Congratulations! {$fullName}, you have consumed 50% of your protein goal. Keep it up!",
                 ]
             );
 
-            // Record the notification in the database
-            $stmt = $db->prepare("
-                INSERT INTO sms_notifications (user_id, notification_type, notification_sent_at) 
-                VALUES (:user_id, :notification_type, NOW())
-            ");
-            
-            $stmt->execute([
-                ':user_id' => $userId,
-                ':notification_type' => 'protein_reminder',
-            ]);
-
-            echo "Reminder message sent to {$fullName} at {$phoneNumber}. SID: " . $message->sid . "\n";
+            echo json_encode(['status' => 'success', 'message' => 'SMS sent successfully.', 'sid' => $message->sid]);
+            exit;
         }
+
+        echo json_encode(['status' => 'info', 'message' => 'Protein goal not yet reached.']);
+        exit;
+    } catch (Exception $e) {
+        echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        exit;
     }
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
 }
 ?>
+<script>
+    function checkProteinProgress() {
+        fetch('../controller/sms.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    console.log(data.message); // Log success message
+                } else if (data.status === 'info') {
+                    console.log(data.message); // Log info message
+                } else {
+                    console.error(data.message); // Log error
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Check protein progress every 5 minutes
+    setInterval(checkProteinProgress, 300000); // 300000 ms = 5 minutes
+</script>
