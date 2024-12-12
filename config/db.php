@@ -1,7 +1,7 @@
 <?php
 // Database configuration
 $host = 'localhost';       // Database host
-$dbname = 'Gyanfit';         // Database name
+$dbname = 'gyanfit';         // Database name
 $username = 'root';        // Database username
 $password = '';            // Database password (update if needed)
 

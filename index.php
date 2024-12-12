@@ -82,28 +82,213 @@
 
 <?php include 'Home/navbar.php'; ?>
     <!-- Hero Section -->
-    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+    <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-white -z-10"></div>
         <div class="max-w-7xl mx-auto">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="space-y-8 animate-float">
-                    <h1 class="text-5xl md:text-6xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight gradient-text">
                         Transform Your Fitness Journey
                     </h1>
                     <p class="text-xl text-gray-600">
                         Track, analyze, and improve your fitness with our intelligent platform. Join thousands of users achieving their health goals.
                     </p>
-                    <div class="flex space-x-4">
-                        <button class="px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <div class="flex flex-wrap gap-4">
+                     <a href="signup.php">   <button class="px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-700 text-white hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                             Get Started Free
                         </button>
-                        <button class="px-8 py-4 rounded-full bg-white text-indigo-600 hover:bg-indigo-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    </a>
+                        <button class="px-8 py-4 rounded-full gradient-border text-indigo-600 hover:bg-indigo-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                             Watch Demo
                         </button>
                     </div>
                 </div>
-                <div class="relative animate-float">
-                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl transform rotate-6 animate-pulse-slow"></div>
-                    <img src="Home/images/firimg.png" alt="Fitness Dashboard" class="relative rounded-3xl shadow-2xl">
+                <div class="relative">
+                    <!-- Insert the SVG here -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-indigo-600/5 to-indigo-700/5 rounded-3xl transform rotate-6"></div>
+                    <div class="relative z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+    <!-- Neural Network Background -->
+    <g class="network-bg">
+        <circle cx="200" cy="150" r="3" fill="#4F46E5">
+            <animate attributeName="opacity"
+                     values="0.3;0.7;0.3"
+                     dur="2s"
+                     repeatCount="indefinite"/>
+        </circle>
+        <circle cx="400" cy="100" r="3" fill="#4F46E5">
+            <animate attributeName="opacity"
+                     values="0.7;0.3;0.7"
+                     dur="2.5s"
+                     repeatCount="indefinite"/>
+        </circle>
+        <circle cx="600" cy="200" r="3" fill="#4F46E5">
+            <animate attributeName="opacity"
+                     values="0.5;0.8;0.5"
+                     dur="3s"
+                     repeatCount="indefinite"/>
+        </circle>
+        <!-- Connecting Lines -->
+        <path d="M200,150 L400,100 L600,200" 
+              stroke="#4F46E5" 
+              stroke-width="1" 
+              fill="none" 
+              opacity="0.2">
+            <animate attributeName="opacity"
+                     values="0.2;0.4;0.2"
+                     dur="3s"
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+
+    <!-- Central Fitness Data Circle -->
+    <circle cx="400" cy="300" r="120" 
+            fill="none" 
+            stroke="#4F46E5" 
+            stroke-width="2">
+        <animate attributeName="r"
+                 values="120;125;120"
+                 dur="4s"
+                 repeatCount="indefinite"/>
+    </circle>
+
+    <!-- Rotating Tech Ring -->
+    <g transform="translate(400, 300)">
+        <circle r="150" 
+                fill="none" 
+                stroke="#818CF8" 
+                stroke-width="1" 
+                stroke-dasharray="30 10">
+            <animateTransform attributeName="transform"
+                            type="rotate"
+                            from="0"
+                            to="360"
+                            dur="20s"
+                            repeatCount="indefinite"/>
+        </circle>
+    </g>
+
+    <!-- AI Data Visualization Elements -->
+    <g transform="translate(400, 300)">
+        <!-- Pulse Wave -->
+        <path d="M-100,0 L-60,0 L-40,-30 L-20,30 L0,0 L40,0"
+              fill="none"
+              stroke="#4F46E5"
+              stroke-width="3"
+              stroke-linecap="round">
+            <animate attributeName="d"
+                     values="M-100,0 L-60,0 L-40,-30 L-20,30 L0,0 L40,0;
+                             M-100,0 L-60,0 L-40,30 L-20,-30 L0,0 L40,0;
+                             M-100,0 L-60,0 L-40,-30 L-20,30 L0,0 L40,0"
+                     dur="2s"
+                     repeatCount="indefinite"/>
+        </path>
+    </g>
+
+    <!-- Animated Fitness Icons -->
+    <g transform="translate(400, 300)">
+        <!-- Dumbbell Icon -->
+        <g transform="translate(-60, -60) scale(0.8)">
+            <rect x="-40" y="-5" width="80" height="10" rx="5" fill="#4F46E5">
+                <animate attributeName="opacity"
+                         values="0.6;1;0.6"
+                         dur="3s"
+                         repeatCount="indefinite"/>
+            </rect>
+            <circle cx="-45" cy="0" r="15" fill="#4F46E5"/>
+            <circle cx="45" cy="0" r="15" fill="#4F46E5"/>
+        </g>
+
+        <!-- Heart Rate Icon -->
+        <g transform="translate(60, -60) scale(0.8)">
+            <path d="M-20,0 L-10,0 L0,-10 L10,10 L20,0"
+                  stroke="#4F46E5"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round">
+                <animate attributeName="stroke-width"
+                         values="3;4;3"
+                         dur="1s"
+                         repeatCount="indefinite"/>
+            </path>
+        </g>
+
+        <!-- Running Figure -->
+        <g transform="translate(0, 60) scale(0.8)">
+            <path d="M-10,0 C-5,-10 5,-10 10,0"
+                  stroke="#4F46E5"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-linecap="round">
+                <animate attributeName="d"
+                         values="M-10,0 C-5,-10 5,-10 10,0;
+                                 M-10,0 C-5,10 5,10 10,0;
+                                 M-10,0 C-5,-10 5,-10 10,0"
+                         dur="1s"
+                         repeatCount="indefinite"/>
+            </path>
+            <circle cx="0" cy="-20" r="8" fill="#4F46E5"/>
+        </g>
+    </g>
+
+    <!-- AI Processing Lines -->
+    <g transform="translate(400, 300)">
+        <g transform="rotate(45)">
+            <line x1="-180" y1="0" x2="180" y2="0" 
+                  stroke="#818CF8" 
+                  stroke-width="1" 
+                  stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset"
+                         values="0;16"
+                         dur="1s"
+                         repeatCount="indefinite"/>
+            </line>
+        </g>
+        <g transform="rotate(-45)">
+            <line x1="-180" y1="0" x2="180" y2="0" 
+                  stroke="#818CF8" 
+                  stroke-width="1" 
+                  stroke-dasharray="4 4">
+                <animate attributeName="stroke-dashoffset"
+                         values="0;16"
+                         dur="1s"
+                         repeatCount="indefinite"/>
+            </line>
+        </g>
+    </g>
+
+    <!-- Data Points -->
+    <g transform="translate(400, 300)">
+        <circle cx="0" cy="-150" r="4" fill="#4F46E5">
+            <animate attributeName="r"
+                     values="4;6;4"
+                     dur="2s"
+                     repeatCount="indefinite"/>
+        </circle>
+        <circle cx="150" cy="0" r="4" fill="#4F46E5">
+            <animate attributeName="r"
+                     values="4;6;4"
+                     dur="2s"
+                     repeatCount="indefinite"
+                     begin="0.5s"/>
+        </circle>
+        <circle cx="0" cy="150" r="4" fill="#4F46E5">
+            <animate attributeName="r"
+                     values="4;6;4"
+                     dur="2s"
+                     repeatCount="indefinite"
+                     begin="1s"/>
+        </circle>
+        <circle cx="-150" cy="0" r="4" fill="#4F46E5">
+            <animate attributeName="r"
+                     values="4;6;4"
+                     dur="2s"
+                     repeatCount="indefinite"
+                     begin="1.5s"/>
+        </circle>
+    </g>
+</svg>
+                    </div>
                 </div>
             </div>
         </div>
