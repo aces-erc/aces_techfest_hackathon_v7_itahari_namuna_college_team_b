@@ -299,7 +299,7 @@
             return '<i class="fas fa-running text-green-500 text-sm"></i>';
         }
 
-        function convertToNepaliNumeral(nuamber) {
+        function convertToNepaliNumeral(number) {
             const nepaliNumerals = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९'];
             return number.toString().split('').map(digit => nepaliNumerals[parseInt(digit)]).join('');
         }

@@ -80,7 +80,7 @@
 <body class="bg-gray-50 min-h-screen">
   
 
-<?php include 'Home/navbar.php'; ?>
+<?php include 'navbar.php'; ?>
 <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 to-white -z-10"></div>
         <div class="max-w-7xl mx-auto">
@@ -185,6 +185,7 @@
     </g>
 
     <!-- Animated Fitness Icons -->
+
     <g transform="translate(400, 300)">
         <!-- Dumbbell Icon -->
         <g transform="translate(-60, -60) scale(0.8)">

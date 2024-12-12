@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = "Invalid phone number or password.";
             }
         } catch (PDOException $e) {
-            
+
             $error = "Database error: " . $e->getMessage();
         }
     } else {
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,6 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<?php include 'navbar.php'; ?>
+
+
 <body class="bg-white">
     <div class="min-h-screen flex items-center justify-center px-4 py-8 bg-blue-700">
         <div class="w-full max-w-md">
