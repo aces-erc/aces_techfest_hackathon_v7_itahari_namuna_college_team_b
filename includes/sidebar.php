@@ -6,30 +6,22 @@
     <title>Enhanced Sidebar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <style>
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    transitionProperty: {
+                        'width': 'width'
+                    },
+                }
+            }
         }
-        @keyframes slideOut {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-        .slide-in {
-            animation: slideIn 0.3s forwards;
-        }
-        .slide-out {
-            animation: slideOut 0.3s forwards;
-        }
-        .lg{
-            padding-left: 28px;
-        }
-    </style>
+    </script>
 </head>
 <body class="font-sans bg-gray-100">
     <div class="flex">
         <!-- Sidebar -->
-        <nav id="sidebar" class="bg-white shadow-xl h-screen fixed top-0 left-0 w-64 py-6 overflow-auto transition-all duration-300 ease-in-out z-50">
+        <nav id="sidebar" class="bg-white shadow-xl h-screen fixed top-0 left-0 w-64 py-6 overflow-hidden transition-all duration-300 ease-in-out z-50">
             <div class="relative flex flex-col h-full">
                 <!-- Toggle Button -->
                 <button id="sidebarToggle" class="absolute -right-3 top-4 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors duration-200">
@@ -37,8 +29,7 @@
                 </button>
 
                 <!-- Logo -->
-                <a class="lg"href="dashboard.php" class="text-center mb-8">
-                <a href="dashboard.php" class="text-center mb-8">
+                <a href="dashboard.php" class="text-center mb-8 px-6">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" class="32 h-16" style="min-width: 120px;">
 
 <circle cx="40" cy="50" r="8" fill="#4F46E5">
@@ -85,9 +76,7 @@
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT </text>
 </svg>                </a>
 </svg>
-
                 </a>
-
 
                 <!-- Navigation Links -->
                 <ul class="space-y-2 flex-1">
@@ -115,16 +104,9 @@
                             <span>Food Log</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="settings.php" class="text-gray-700 text-sm flex items-center hover:text-blue-600 hover:border-r-4 border-blue-600 hover:bg-blue-50 px-6 py-3 transition-all">
-                        <i class="uil uil-dollar-sign w-5 h-5 mr-3 text-yellow-500"></i>
-                            <span>Premium</span>
-                        </a>
-                    </li>
                     <li>
                         <a href="scanner.php" class="text-gray-700 text-sm flex items-center hover:text-blue-600 hover:border-r-4 border-blue-600 hover:bg-blue-50 px-6 py-3 transition-all">
-                            <i class="uil uil-barcode-scan w-5 h-5 mr-3"></i>
+                            <i class="uil uil-qrcode-scan w-5 h-5 mr-3"></i>
                             <span>Barcode</span>
                         </a>
                     </li>
@@ -160,20 +142,21 @@
     <script>
         const sidebar = document.getElementById('sidebar');
         const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarItems = document.querySelectorAll('#sidebar a span');
         let isSidebarOpen = true;
 
         sidebarToggle.addEventListener('click', () => {
             isSidebarOpen = !isSidebarOpen;
             if (isSidebarOpen) {
-                sidebar.style.width = '256px';
-                sidebar.classList.remove('slide-out');
-                sidebar.classList.add('slide-in');
+                sidebar.classList.remove('w-16');
+                sidebar.classList.add('w-64');
                 sidebarToggle.innerHTML = '<i class="uil uil-angle-left-b text-gray-600 text-xl"></i>';
+                sidebarItems.forEach(item => item.classList.remove('hidden'));
             } else {
-                sidebar.style.width = '0';
-                sidebar.classList.remove('slide-in');
-                sidebar.classList.add('slide-out');
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-16');
                 sidebarToggle.innerHTML = '<i class="uil uil-bars text-gray-600 text-xl"></i>';
+                sidebarItems.forEach(item => item.classList.add('hidden'));
             }
         });
     </script>
