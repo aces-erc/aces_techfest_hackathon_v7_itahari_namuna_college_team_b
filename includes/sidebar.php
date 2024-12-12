@@ -1,9 +1,44 @@
 
-<nav class="bg-white shadow-xl h-screen fixed top-0 left-0 min-w-[250px] py-6 font-[sans-serif] overflow-auto">
-    <div class="relative flex flex-col h-full">
-        <!-- Logo -->
-        <a href="dashboard.php" class="text-center mb-8 item-center pl-12 ">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" class="32 h-16" style="min-width: 120px;">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+        .slide-in {
+            animation: slideIn 0.3s forwards;
+        }
+        .slide-out {
+            animation: slideOut 0.3s forwards;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-100">
+    <div class="flex">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="bg-white shadow-xl h-screen fixed top-0 left-0 w-64 py-6 overflow-auto transition-all duration-300 ease-in-out z-50">
+            <div class="relative flex flex-col h-full">
+                <!-- Toggle Button -->
+                <button id="sidebarToggle" class="absolute -right-3 top-4 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors duration-200">
+                    <i class="uil uil-angle-left-b text-gray-600 text-xl"></i>
+                </button>
+
+
+                <!-- Logo -->
+                <a href="dashboard.php" class="text-center mb-8">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" class="32 h-16" style="min-width: 120px;">
 
 <circle cx="40" cy="50" r="8" fill="#4F46E5">
   <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
@@ -47,47 +82,6 @@
 <text x="10" y="70" font-family="Arial" font-size="18" fill="#4F46E5">AI</text>
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT</text>
 </svg>
-        </a>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Sidebar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <style>
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
-        }
-        .slide-in {
-            animation: slideIn 0.3s forwards;
-        }
-        .slide-out {
-            animation: slideOut 0.3s forwards;
-        }
-    </style>
-</head>
-<body class="font-sans bg-gray-100">
-    <div class="flex">
-        <!-- Sidebar -->
-        <nav id="sidebar" class="bg-white shadow-xl h-screen fixed top-0 left-0 w-64 py-6 overflow-auto transition-all duration-300 ease-in-out z-50">
-            <div class="relative flex flex-col h-full">
-                <!-- Toggle Button -->
-                <button id="sidebarToggle" class="absolute -right-3 top-4 bg-white rounded-full p-1 shadow-md hover:bg-gray-100 transition-colors duration-200">
-                    <i class="uil uil-angle-left-b text-gray-600 text-xl"></i>
-                </button>
-
-
-                <!-- Logo -->
-                <a href="dashboard.php" class="text-center mb-8">
-                    <img src="https://via.placeholder.com/160x50?text=FitNepal" alt="FitNepal Logo" class='w-[160px] inline' />
                 </a>
 
                 <!-- Navigation Links -->
