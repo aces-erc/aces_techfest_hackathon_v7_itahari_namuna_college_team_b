@@ -4,7 +4,7 @@ session_start();
 // hello world
 // Handle login logic
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']); // Could be phone or email
+    $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
     if (!empty($username) && !empty($password)) {
