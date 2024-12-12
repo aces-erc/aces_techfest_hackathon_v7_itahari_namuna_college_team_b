@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = "Invalid phone number or password.";
             }
         } catch (PDOException $e) {
+            
             $error = "Database error: " . $e->getMessage();
         }
     } else {
