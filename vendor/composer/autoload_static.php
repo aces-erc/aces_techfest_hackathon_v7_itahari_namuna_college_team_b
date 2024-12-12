@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit5003a2117afcbf320b8eb083135ed3f5
 {
     public static $prefixLengthsPsr4 = array (
+        'X' => 
+        array (
+            'Xentixar\\KhaltiSdk\\' => 19,
+        ),
         'T' => 
         array (
             'Twilio\\' => 7,
@@ -20,6 +24,10 @@ class ComposerStaticInit5003a2117afcbf320b8eb083135ed3f5
     );
 
     public static $prefixDirsPsr4 = array (
+        'Xentixar\\KhaltiSdk\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/xentixar/khalti-sdk/src',
+        ),
         'Twilio\\' => 
         array (
             0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',

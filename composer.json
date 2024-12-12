@@ -2,6 +2,7 @@
     "require": {
         "pragmarx/google2fa": "^8.0",
         "twilio/sdk": "^8.3",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "xentixar/khalti-sdk": "^1.0"
     }
 }
