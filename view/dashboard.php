@@ -6,7 +6,7 @@ include_once '../includes/session.php';
 try {
     $stmt = $db->prepare("
         SELECT 
-            u.user_id, u.full_name, u.age, u.weight, u.height, u.weekly_activities, u.consumed_protein, 
+            u.user_id, u.full_name, u.age, u.weight, u.height, u.weekly_activities, u.consumed_protein, u.water_goal, 
             bs.bmi, bs.protein_goal, bs.calories_goal, bs.weight_recommendation
         FROM users u
         LEFT JOIN body_stats bs ON u.user_id = bs.user_id
@@ -192,6 +192,14 @@ $proteinPercentage = min(100, round(($user['consumed_protein'] / $user['protein_
                         'title' => 'Current Weight',
                         'value' => $user['weight'],
                         'unit' => 'kg',
+                        'decimals' => 1,
+                        'bg_color' => 'bg-gradient-to-br from-orange-50 to-orange-100',
+                        'text_color' => 'text-orange-700'
+                    ],
+                    [
+                        'title' => 'Water Goal',
+                        'value' => $user['water_goal'],
+                        'unit' => 'ml',
                         'decimals' => 1,
                         'bg_color' => 'bg-gradient-to-br from-orange-50 to-orange-100',
                         'text_color' => 'text-orange-700'

@@ -46,7 +46,7 @@
         };
     </script>
 </head>
-<?php include "../includes/sidebar.php"; ?>
+<?php include_once '../includes/sidebar.php'; ?>
 <body class="h-full bg-primary-50">
     <div class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div class="sm:mx-auto sm:w-full sm:max-w-md">
