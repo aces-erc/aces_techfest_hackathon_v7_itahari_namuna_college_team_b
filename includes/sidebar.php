@@ -54,6 +54,7 @@
   <animate attributeName="opacity" values="1;0.5;1" dur="2s" repeatCount="indefinite" />
 </circle>
 
+
 <line x1="48" y1="50" x2="72" y2="30" stroke="#4F46E5" stroke-width="2">
   <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite" />
 </line>
@@ -87,8 +88,8 @@
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT</text>
 </svg>
 
-                    <img src="https://via.placeholder.com/160x50?text=FitNepal" alt="FitNepal Logo" class='w-[160px] inline' />
                 </a>
+
 
                 <!-- Navigation Links -->
                 <ul class="space-y-2 flex-1">
@@ -114,6 +115,13 @@
                         <a href="food.php" class="text-gray-700 text-sm flex items-center hover:text-blue-600 hover:border-r-4 border-blue-600 hover:bg-blue-50 px-6 py-3 transition-all">
                             <i class="uil uil-restaurant w-5 h-5 mr-3"></i>
                             <span>Food Log</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="settings.php" class="text-gray-700 text-sm flex items-center hover:text-blue-600 hover:border-r-4 border-blue-600 hover:bg-blue-50 px-6 py-3 transition-all">
+                        <i class="uil uil-dollar-sign w-5 h-5 mr-3 text-yellow-500"></i>
+                            <span>Premium</span>
                         </a>
                     </li>
                     <li>
