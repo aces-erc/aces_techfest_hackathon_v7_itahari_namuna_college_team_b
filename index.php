@@ -325,11 +325,200 @@
         </div>
     </section>
 
+    <!--  -->
+    <!-- Add this right before the Feature Cards section -->
+
+<!-- FAQ Section -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <p class="text-xl text-gray-600">Find answers to common questions about GYANFIT AI</p>
+        </div>
+        
+        <div class="grid gap-8 max-w-3xl mx-auto">
+            <!-- FAQ Item 1 -->
+            <div class="rounded-lg border border-gray-200">
+                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold">How do I get started with GYANFIT AI?</span>
+                    <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                </button>
+                <div class="hidden p-6 pt-0 text-gray-600">
+                    Simply click the "Get Started Free" button, create your account, and follow our easy setup guide. You'll be able to start tracking your fitness journey in minutes!
+                </div>
+            </div>
+
+            <!-- FAQ Item 2 -->
+            <div class="rounded-lg border border-gray-200">
+                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold">What features are included in the free plan?</span>
+                    <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                </button>
+                <div class="hidden p-6 pt-0 text-gray-600">
+                    The free plan includes basic health tracking, workout planning, and progress analytics. You can track your daily activities, create custom workouts, and view basic performance metrics.
+                </div>
+            </div>
+
+            <!-- FAQ Item 3 -->
+            <div class="rounded-lg border border-gray-200">
+                <button class="w-full flex justify-between items-center p-6 text-left" onclick="toggleFAQ(this)">
+                    <span class="text-lg font-semibold">Can I sync GYANFIT AI with my fitness devices?</span>
+                    <i class="fas fa-chevron-down transform transition-transform duration-300"></i>
+                </button>
+                <div class="hidden p-6 pt-0 text-gray-600">
+                    Yes! GYANFIT AI supports integration with most popular fitness devices and apps. You can sync your data seamlessly for a complete fitness tracking experience.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Icon -->
+        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300">
+            <i class="fas fa-comments text-white text-2xl"></i>
+        </button>
+
+        <!-- Chat Window -->
+        <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 bg-white rounded-lg shadow-xl">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-t-lg">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold">AI Assistant</h3>
+                    <button onclick="toggleChat()" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div class="h-96 overflow-y-auto p-4 space-y-4" id="chat-messages">
+                <!-- Initial Message -->
+                <div class="flex items-start">
+                    <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                        <p>Namaste! 👋 How can I assist you today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4 border-t">
+                <div class="flex space-x-2">
+                    <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 p-2 border rounded-lg focus:outline-none focus:border-indigo-600">
+                    <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 rounded-lg hover:bg-purple-600">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Chat Window
+        function toggleChat() {
+            const chatWindow = document.getElementById('chat-window');
+            chatWindow.classList.toggle('hidden');
+        }
+
+        // Send Message to Node.js Server
+        async function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Add user message to chat
+    addMessage(message, true);
+    input.value = '';
+
+    // Fetch response from Node.js server
+    const response = await fetch('http://localhost:4000/assistant-response', { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: message }),
+    }).then(res => res.json());
+
+    // Add bot response to chat
+    addMessage(response.reply, false);
+}
+
+
+        // Add Message to Chat Window
+        function addMessage(text, isUser) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'flex items-start' + (isUser ? ' justify-end' : '');
+
+            messageDiv.innerHTML = `
+                <div class="${isUser ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-lg p-3 max-w-[80%]">
+                    <p>${text}</p>
+                </div>
+            `;
+
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+
+
+
+
+<!-- Add this before closing body tag -->
+<script>
+function toggleFAQ(element) {
+    const content = element.nextElementSibling;
+    const icon = element.querySelector('i');
+    content.classList.toggle('hidden');
+    icon.classList.toggle('rotate-180');
+}
+
+function toggleChat() {
+    const chatWindow = document.getElementById('chat-window');
+    chatWindow.classList.toggle('hidden');
+}
+
+function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    if (!message) return;
+
+    // Add user message
+    addMessage(message, true);
+    input.value = '';
+
+    // Simulate bot response (replace with actual backend integration)
+    setTimeout(() => {
+        
+        const responses = [
+            "I'll help you with that! Let me check...",
+            "Thanks for your question. Here's what you need to know...",
+            "I understand. Let me guide you through the process...",
+        ];
+        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+        addMessage(randomResponse, false);
+    }, 1000);
+}
+
+function addMessage(text, isUser) {
+    const messagesDiv = document.getElementById('chat-messages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'flex items-start' + (isUser ? ' justify-end' : '');
+    
+    messageDiv.innerHTML = `
+        <div class="${isUser ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-lg p-3 max-w-[80%]">
+            <p>${text}</p>
+        </div>
+    `;
+    
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+</script>
+
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-indigo-900 to-purple-900 text-white py-16 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
             <div class="space-y-4">
-                <h3 class="text-2xl font-bold">FitFlow</h3>
+                <h3 class="text-2xl font-bold">GYANFIT AI</h3>
                 <p class="text-gray-300">Your complete fitness companion for a healthier lifestyle.</p>
             </div>
             <div class="space-y-4">
@@ -365,7 +554,7 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto pt-8 mt-8 border-t border-gray-700">
-            <p class="text-center text-gray-300">© 2024 FitFlow. All rights reserved.</p>
+            <p class="text-center text-gray-300">© 2024 GYANFIT AI. All rights reserved.</p>
         </div>
     </footer>
 </body>
