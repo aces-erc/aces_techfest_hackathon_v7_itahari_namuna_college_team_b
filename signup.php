@@ -10,13 +10,13 @@
         body {
             font-family: 'Barlow', sans-serif;
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #1E3A8A, #1E40AF, #1E429F);
-        }
+      
     </style>
 </head>
 
 <body class="gradient-bg text-white min-h-screen flex items-center justify-center">
+<body class="bg-blue-300 text-white min-h-screen flex items-center justify-center">
+
 <div class="w-full max-w-lg bg-white rounded-lg shadow-2xl p-8 text-blue-900">
     <h1 class="text-3xl font-bold mb-6 text-center">Create Your Account</h1>
     
