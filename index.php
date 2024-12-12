@@ -373,7 +373,6 @@
         </div>
     </div>
 </section>
-
 <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
     <!-- Chat Icon -->
     <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300">
@@ -421,7 +420,7 @@
         chatWindow.classList.toggle('hidden');
     }
 
-    // Send Message to PHP Server with Gemini API Integration
+    // Send Message to PHP Server with OpenRouter API Integration
     async function sendMessage() {
         const input = document.getElementById('chat-input');
         const message = input.value.trim();
@@ -432,14 +431,23 @@
         input.value = '';
 
         // Fetch response from PHP server
-        const response = await fetch('controller/gemini-response.php', { 
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: message }),
-        }).then(res => res.json());
+        try {
+            const response = await fetch('openrouter-response.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: message }),
+            });
 
-        // Add bot response to chat
-        addMessage(response.reply, false);
+            if (response.ok) {
+                const data = await response.json();
+                // Add bot response to chat
+                addMessage(data.reply || "Sorry, I didn't understand that.", false);
+            } else {
+                addMessage("Error connecting to AI server. Please try again later.", false);
+            }
+        } catch (error) {
+            addMessage("An error occurred. Please check your connection or try again.", false);
+        }
     }
 
     // Add Message to Chat Window
@@ -460,60 +468,6 @@
 </script>
 
 
-
-
-
-<!-- Add this before closing body tag -->
-<script>
-function toggleFAQ(element) {
-    const content = element.nextElementSibling;
-    const icon = element.querySelector('i');
-    content.classList.toggle('hidden');
-    icon.classList.toggle('rotate-180');
-}
-
-function toggleChat() {
-    const chatWindow = document.getElementById('chat-window');
-    chatWindow.classList.toggle('hidden');
-}
-
-function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    if (!message) return;
-
-    // Add user message
-    addMessage(message, true);
-    input.value = '';
-
-    // Simulate bot response (replace with actual backend integration)
-    setTimeout(() => {
-        
-        const responses = [
-            "I'll help you with that! Let me check...",
-            "Thanks for your question. Here's what you need to know...",
-            "I understand. Let me guide you through the process...",
-        ];
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        addMessage(randomResponse, false);
-    }, 1000);
-}
-
-function addMessage(text, isUser) {
-    const messagesDiv = document.getElementById('chat-messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.className = 'flex items-start' + (isUser ? ' justify-end' : '');
-    
-    messageDiv.innerHTML = `
-        <div class="${isUser ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-lg p-3 max-w-[80%]">
-            <p>${text}</p>
-        </div>
-    `;
-    
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-</script>
 
     <!-- Footer -->
     <footer class="bg-gradient-to-r from-indigo-900 to-purple-900 text-white py-16 px-4 sm:px-6 lg:px-8">
