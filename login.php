@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Redirect to the dashboard
                 header("Location: view/dashboard.php");
-                exit();
+                exit(); 
             } else {
                 $error = "Invalid phone number or password.";
             }

@@ -38,6 +38,7 @@
 
                 <!-- Logo -->
                 <a class="lg"href="dashboard.php" class="text-center mb-8">
+                <a href="dashboard.php" class="text-center mb-8">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" class="32 h-16" style="min-width: 120px;">
 
 <circle cx="40" cy="50" r="8" fill="#4F46E5">
@@ -82,6 +83,12 @@
 <text x="10" y="70" font-family="Arial" font-size="18" fill="#4F46E5">AI</text>
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT </text>
 </svg>                </a>
+=======
+<text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT</text>
+</svg>
+
+                    <img src="https://via.placeholder.com/160x50?text=FitNepal" alt="FitNepal Logo" class='w-[160px] inline' />
+                </a>
 
                 <!-- Navigation Links -->
                 <ul class="space-y-2 flex-1">
