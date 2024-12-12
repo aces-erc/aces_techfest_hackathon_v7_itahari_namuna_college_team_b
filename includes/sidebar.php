@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -82,6 +81,8 @@
 <text x="10" y="70" font-family="Arial" font-size="18" fill="#4F46E5">AI</text>
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT</text>
 </svg>
+
+                    <img src="https://via.placeholder.com/160x50?text=FitNepal" alt="FitNepal Logo" class='w-[160px] inline' />
                 </a>
 
                 <!-- Navigation Links -->
