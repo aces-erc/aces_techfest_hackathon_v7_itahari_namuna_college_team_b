@@ -84,8 +84,6 @@
 <text x="10" y="70" font-family="Arial" font-size="18" fill="#4F46E5">AI</text>
 <text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT </text>
 </svg>                </a>
-=======
-<text x="100" y="20" font-family="Arial" font-size="14" fill="#7C3AED">GYANFIT</text>
 </svg>
 
                 </a>
