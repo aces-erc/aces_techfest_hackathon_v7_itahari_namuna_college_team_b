@@ -375,90 +375,90 @@
 </section>
 
 <div id="chatbot-widget" class="fixed bottom-6 right-6 z-50">
-        <!-- Chat Icon -->
-        <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300">
-            <i class="fas fa-comments text-white text-2xl"></i>
-        </button>
+    <!-- Chat Icon -->
+    <button onclick="toggleChat()" class="w-16 h-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full shadow-lg flex items-center justify-center hover:scale-110 transition-all duration-300">
+        <i class="fas fa-comments text-white text-2xl"></i>
+    </button>
 
-        <!-- Chat Window -->
-        <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 bg-white rounded-lg shadow-xl">
-            <!-- Chat Header -->
-            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-t-lg">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-semibold">AI Assistant</h3>
-                    <button onclick="toggleChat()" class="text-white hover:text-gray-200">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+    <!-- Chat Window -->
+    <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 bg-white rounded-lg shadow-xl">
+        <!-- Chat Header -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 rounded-t-lg">
+            <div class="flex items-center justify-between">
+                <h3 class="font-semibold">AI Assistant</h3>
+                <button onclick="toggleChat()" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+        </div>
 
-            <!-- Chat Messages -->
-            <div class="h-96 overflow-y-auto p-4 space-y-4" id="chat-messages">
-                <!-- Initial Message -->
-                <div class="flex items-start">
-                    <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
-                        <p>Namaste! 👋 How can I assist you today?</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Chat Input -->
-            <div class="p-4 border-t">
-                <div class="flex space-x-2">
-                    <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 p-2 border rounded-lg focus:outline-none focus:border-indigo-600">
-                    <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 rounded-lg hover:bg-purple-600">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+        <!-- Chat Messages -->
+        <div class="h-96 overflow-y-auto p-4 space-y-4" id="chat-messages">
+            <!-- Initial Message -->
+            <div class="flex items-start">
+                <div class="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                    <p>Namaste! 👋 How can I assist you today?</p>
                 </div>
             </div>
         </div>
+
+        <!-- Chat Input -->
+        <div class="p-4 border-t">
+            <div class="flex space-x-2">
+                <input type="text" id="chat-input" placeholder="Type your message..." class="flex-1 p-2 border rounded-lg focus:outline-none focus:border-indigo-600">
+                <button onclick="sendMessage()" class="bg-indigo-600 text-white px-4 rounded-lg hover:bg-purple-600">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
     </div>
+</div>
 
-    <script>
-        // Toggle Chat Window
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.classList.toggle('hidden');
-        }
+<script>
+    // Toggle Chat Window
+    function toggleChat() {
+        const chatWindow = document.getElementById('chat-window');
+        chatWindow.classList.toggle('hidden');
+    }
 
-        // Send Message to Node.js Server
-        async function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const message = input.value.trim();
-    if (!message) return;
+    // Send Message to PHP Server with Gemini API Integration
+    async function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (!message) return;
 
-    // Add user message to chat
-    addMessage(message, true);
-    input.value = '';
+        // Add user message to chat
+        addMessage(message, true);
+        input.value = '';
 
-    // Fetch response from Node.js server
-    const response = await fetch('http://localhost:4000/assistant-response', { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: message }),
-    }).then(res => res.json());
+        // Fetch response from PHP server
+        const response = await fetch('controller/gemini-response.php', { 
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: message }),
+        }).then(res => res.json());
 
-    // Add bot response to chat
-    addMessage(response.reply, false);
-}
+        // Add bot response to chat
+        addMessage(response.reply, false);
+    }
 
+    // Add Message to Chat Window
+    function addMessage(text, isUser) {
+        const messagesDiv = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'flex items-start' + (isUser ? ' justify-end' : '');
 
-        // Add Message to Chat Window
-        function addMessage(text, isUser) {
-            const messagesDiv = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'flex items-start' + (isUser ? ' justify-end' : '');
+        messageDiv.innerHTML = `
+            <div class="${isUser ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-lg p-3 max-w-[80%]">
+                <p>${text}</p>
+            </div>
+        `;
 
-            messageDiv.innerHTML = `
-                <div class="${isUser ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-800'} rounded-lg p-3 max-w-[80%]">
-                    <p>${text}</p>
-                </div>
-            `;
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+</script>
 
-            messagesDiv.appendChild(messageDiv);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-    </script>
 
 
 

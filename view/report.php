@@ -2,6 +2,22 @@
 include_once '../config/db.php';
 include_once '../includes/session.php';
 
+// Check if the user has a "paid" status in `manual_pay`
+$is_paid = false;
+if (isset($_SESSION['user_id'])) {
+    try {
+        $stmt = $db->prepare("SELECT status FROM manual_pay WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 1");
+        $stmt->execute([':user_id' => $_SESSION['user_id']]);
+        $payment = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($payment && $payment['status'] === 'paid') {
+            $is_paid = true;
+        }
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+    }
+}
+
 // Fetch workout stats for the current month
 try {
     $stmt = $db->prepare("
@@ -74,9 +90,11 @@ function exportData($data) {
                 <span class="text-lg text-gray-600 ml-2"><?php echo date('F Y'); ?></span>
             </h1>
             <div class="flex space-x-4">
-                <button id="exportBtn" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-md transition-all duration-300 text-gray-700">
-                    <i class="fas fa-download mr-2"></i>Export
-                </button>
+                <?php if ($is_paid): ?>
+                    <button id="exportBtn" class="px-4 py-2 bg-white rounded-lg shadow hover:shadow-md transition-all duration-300 text-gray-700">
+                        <i class="fas fa-download mr-2"></i>Export
+                    </button>
+                <?php endif; ?>
                 <button onclick="location.reload();" class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:shadow-md transition-all duration-300">
                     <i class="fas fa-sync-alt mr-2"></i>Refresh
                 </button>
@@ -239,7 +257,7 @@ function exportData($data) {
         });
 
         // Export functionality
-        document.getElementById('exportBtn').addEventListener('click', function() {
+        document.getElementById('exportBtn')?.addEventListener('click', function() {
             const data = <?php echo json_encode($workoutData); ?>;
             const csvContent = "data:text/csv;charset=utf-8," + <?php echo json_encode(exportData($workoutData)); ?>;
             const encodedUri = encodeURI(csvContent);
@@ -253,4 +271,3 @@ function exportData($data) {
     </script>
 </body>
 </html>
-

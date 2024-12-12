@@ -1,3 +1,23 @@
+<?php
+include_once '../config/db.php';
+include_once '../includes/session.php';
+
+// Check user payment status
+$is_paid = false;
+if (isset($_SESSION['user_id'])) {
+    try {
+        $stmt = $db->prepare("SELECT status FROM manual_pay WHERE user_id = :user_id ORDER BY created_at DESC LIMIT 1");
+        $stmt->execute([':user_id' => $_SESSION['user_id']]);
+        $payment = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($payment && $payment['status'] === 'paid') {
+            $is_paid = true;
+        }
+    } catch (PDOException $e) {
+        error_log("Database Error: " . $e->getMessage());
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,18 +107,27 @@
             </div>
             <div id="message-container" class="h-[calc(100vh-300px)] p-6 overflow-y-auto space-y-6"></div>
             <div class="bg-gray-100 p-6">
-                <div id="typing-indicator" class="text-[#1E40AF] text-sm mb-2 hidden">
-                    <div class="typing-indicator">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <?php if ($is_paid): ?>
+                    <div id="typing-indicator" class="text-[#1E40AF] text-sm mb-2 hidden">
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        AI is thinking...
                     </div>
-                    AI is thinking...
-                </div>
-                <div class="flex items-center space-x-4">
-                    <input style="color:black" id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300">
-                    <button onclick="sendMessage()" class="bg-[#1E40AF] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E40AF]">Send</button>
-                </div>
+                    <div class="flex items-center space-x-4">
+                        <input style="color:black" id="user-input" type="text" placeholder="Ask about your diet..." class="w-full p-3 border border-[#1E40AF] rounded-full focus:outline-none focus:ring-2 focus:ring-[#1E40AF] transition-all duration-300">
+                        <button onclick="sendMessage()" class="bg-[#1E40AF] text-white px-6 py-3 rounded-full hover:bg-opacity-90 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1E40AF]">Send</button>
+                    </div>
+                <?php else: ?>
+                    <div class="text-center text-gray-700">
+                        <p class="text-lg">Unlock AI chat by upgrading your account!</p>
+                        <button onclick="location.href='premium.php'" class="mt-4 px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-all">
+                            Upgrade Now
+                        </button>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>
@@ -107,7 +136,7 @@
         const typingIndicator = document.getElementById('typing-indicator');
         const userInput = document.getElementById('user-input');
 
-        userInput.addEventListener('keypress', (e) => {
+        userInput?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 sendMessage();
             }
@@ -165,10 +194,11 @@
         }
 
         function selectPrompt(prompt) {
-            document.getElementById('user-input').value = prompt;
-            sendMessage();
+            if (userInput) {
+                userInput.value = prompt;
+                sendMessage();
+            }
         }
     </script>
 </body>
 </html>
-
